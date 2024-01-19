@@ -8,6 +8,9 @@ const app = express();
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cors({
+    origin: '*',
+}));
 
 //connect database
 db.connect();
@@ -18,7 +21,9 @@ app.get('/', (req, res) => {
 
 //config route
 const routes = require('./routes');
-app.use('/api', cors({origin: '*'}), routes);
+app.use('/api', routes);
+
+// app.use('/api', cors({origin: '*'}), routes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
